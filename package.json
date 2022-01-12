@@ -1,8 +1,8 @@
 {
-  "name": "memorandum",
+  "name": "tunnel-simulator",
   "version": "0.0.1",
   "author": "Wang Yu <wang.yu@stee.stengg.com.cn>",
-  "description": "A little memorandum",
+  "description": "tunnel simulator",
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {
@@ -17,8 +17,8 @@
     "postinstall": ""
   },
   "build": {
-    "productName": "memorandum",
-    "appId": "com.example.yourapp",
+    "productName": "tunnel simulator",
+    "appId": "com.wangyu",
     "directories": {
       "output": "build"
     },
@@ -51,8 +51,10 @@
     }
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "axios": "^0.18.0",
-    "bootstrap": "^5.1.1",
+    "bootstrap": "4.5.3",
+    "bootstrap-vue": "^2.21.2",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",

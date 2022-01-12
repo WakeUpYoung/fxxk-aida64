@@ -18,14 +18,17 @@ function createWindow () {
   /**
    * Initial window options
    */
+  const { Menu } = require('electron');
+
   mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
     useContentSize: true,
-    frame: false
+    frame: true
   })
 
   mainWindow.loadURL(winURL)
+  Menu.setApplicationMenu(null);
 
   mainWindow.on('closed', () => {
     mainWindow = null

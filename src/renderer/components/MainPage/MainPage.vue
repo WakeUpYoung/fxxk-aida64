@@ -1,127 +1,77 @@
 <template>
-  <div class="background">
-    <div class="container pt-3 w-100 overflow-auto memo-container">
-      <div v-if="memoList.length <= 0" class="text-white">
-        List is empty
-      </div>
-      <div v-else class="">
-        <div v-for="(data, index) of memoList">
-          <Memo @show-toast="showToast" :title="data.title" :content="data.content" :index="index"></Memo>
-        </div>
-      </div>
-    </div>
+  <b-container id="main-page">
+    <div class="h4 text-center mt-2">Tunnel Simulator</div>
+    <b-button variant="success" @click="sendMsgModal=true">Send Tunnel Message >></b-button>
 
-    <button id="add-btn" type="button" class="btn btn-lg rounded-circle" @click="onClickAdd">
-      <span class="material-icons" style="font-size: 2rem">add</span>
-    </button>
+    <dashboard @showSnackbar="showSnackbar" class="mt-2"></dashboard>
 
-    <div class="fixed-bottom w-100 d-flex justify-content-center align-items-center">
-      <transition name="toast">
-          <span v-show="toastShow" class="text-white mb-4 toast-content">{{toastMsg}}</span>
-      </transition>
-    </div>
+    <b-modal v-model="sendMsgModal" title="Send tunnel message" ok-title="SEND" @ok="sendTunnelMessage">
+      <b-form-group label="Tunnel Channel">
+        <b-form-radio-group
+            id="channel-group"
+            v-model="tunnelChannel"
+            :options="constant.tunnelChannels"
+            name="channel-group"
+        ></b-form-radio-group>
+      </b-form-group>
+      <b-form-group
+          id="tunnel-msg-input"
+          label="Message Body"
+          label-for="msg-body">
+        <b-form-input id="msg-body" v-model="tunnelMsg" trim></b-form-input>
+      </b-form-group>
+    </b-modal>
 
-  </div>
+    <snackbar v-model="snackbarShow" :alert-message="alertMessage" :alertVariant="alertVariant"></snackbar>
+  </b-container>
 </template>
 
 <script>
-import Memo from "../Memo";
+import Constant from '../../constant'
+import Dashboard from "../Dashboard";
+import Snackbar from "../Snackbar";
 
 export default {
   name: 'MainPage',
-  components: {Memo},
-  computed: {
-    memoList: vm => vm.$store.state.MemoList.dataList
-  },
+  components: {Dashboard, Snackbar},
   data() {
     return {
-      toastShow: false,
-      toastMsg: ''
+      sendMsgModal: false,
+      tunnelMsg: '',
+      tunnelChannel: '',
+      constant: Constant,
+
+      snackbarShow: false,
+      alertMessage: '',
+      alertVariant: '',
     }
   },
+
   methods: {
-    onClickAdd() {
-      let dataList = this.memoList.slice()
-      dataList.push({title: 'New Title', content: 'New content'})
-      this.$store.commit('setDataList', dataList)
-    },
-    showToast(msgStr) {
-      this.toastShow = true
-      this.toastMsg = msgStr
-    }
-  },
-  watch: {
-    toastShow: function(newVal, oldVal) {
-      let vm = this
-      if (newVal) {
-        setTimeout(function () {
-          vm.toastShow = false
-        }, 800)
+    sendTunnelMessage() {
+      console.log(this.tunnelChannel, this.tunnelMsg)
+      if (!this.tunnelChannel || !this.tunnelMsg) {
+        this.showSnackbar({
+          alertMessage: 'Invalid request parameter!',
+          alertVariant: 'danger'
+        })
+        return
       }
-    }
+      this.$http
+          .get(`http://${Constant.serverAddress}:${Constant.serverPort}/sendTunnelMessage/${this.tunnelChannel}/${this.tunnelMsg}`)
+    },
+    showSnackbar(data) {
+      this.snackbarShow = true
+      this.alertMessage = data.alertMessage
+      this.alertVariant = data.alertVariant ? data.alertVariant : 'primary'
+    },
   }
+
 }
 </script>
 
 <style lang="css" scoped>
-.background {
-  background-image: url("https://bing.ioliu.cn/v1/rand?h=700&w=1080");
+#main-page {
+  overflow-x: hidden;
 }
-.memo-container {
-  height: 90vh;
-}
-#add-btn {
-  position: fixed;
-  right:2rem;
-  bottom:2.5rem;
-  z-index:1030;
-  background-color: #425B67;
-  color: whitesmoke;
-  box-shadow: 0.5rem 0.5rem 1rem rgba(66, 91, 103, 0.5) !important;
-}
-.toast-content {
-  background-color: #1BBC9B;
-  padding: 1rem 3rem;
-  border-radius: 20px;
-  box-shadow: 1rem .5rem 50px #12836e;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #1f5c5d;
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #2c8486;
-}
-
-.toast-enter-active {
-  animation: bounce-in .5s;
-}
-.toast-leave-active {
-  animation: bounce-in .5s reverse;
-}
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 </style>
