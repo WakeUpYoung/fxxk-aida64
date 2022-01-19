@@ -8,6 +8,7 @@ import {BootstrapVue, BootstrapVueIcons} from "bootstrap-vue"
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 import './global.css'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))

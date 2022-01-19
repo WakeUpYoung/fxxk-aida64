@@ -1,77 +1,67 @@
 <template>
-  <b-container id="main-page">
-    <div class="h4 text-center mt-2">Tunnel Simulator</div>
-    <b-button variant="success" @click="sendMsgModal=true">Send Tunnel Message >></b-button>
-
-    <dashboard @showSnackbar="showSnackbar" class="mt-2"></dashboard>
-
-    <b-modal v-model="sendMsgModal" title="Send tunnel message" ok-title="SEND" @ok="sendTunnelMessage">
-      <b-form-group label="Tunnel Channel">
-        <b-form-radio-group
-            id="channel-group"
-            v-model="tunnelChannel"
-            :options="constant.tunnelChannels"
-            name="channel-group"
-        ></b-form-radio-group>
-      </b-form-group>
-      <b-form-group
-          id="tunnel-msg-input"
-          label="Message Body"
-          label-for="msg-body">
-        <b-form-input id="msg-body" v-model="tunnelMsg" trim></b-form-input>
-      </b-form-group>
-    </b-modal>
-
-    <snackbar v-model="snackbarShow" :alert-message="alertMessage" :alertVariant="alertVariant"></snackbar>
-  </b-container>
+  <div>
+    <div id="toolbar-trigger" @mouseenter="showToolbar" @mouseleave="hideToolbar"></div>
+    <Toolbar id="toolbar"></Toolbar>
+    <b-button class="mt-5" @click="onClick">Click me</b-button>
+    <Dashboard></Dashboard>
+  </div>
 </template>
 
 <script>
-import Constant from '../../constant'
-import Dashboard from "../Dashboard";
-import Snackbar from "../Snackbar";
 
+import Dashboard from "../Dashboard";
+import Toolbar from "../Toolbar";
 export default {
   name: 'MainPage',
-  components: {Dashboard, Snackbar},
+  components: {Toolbar, Dashboard},
   data() {
     return {
-      sendMsgModal: false,
-      tunnelMsg: '',
-      tunnelChannel: '',
-      constant: Constant,
 
-      snackbarShow: false,
-      alertMessage: '',
-      alertVariant: '',
     }
   },
-
   methods: {
-    sendTunnelMessage() {
-      console.log(this.tunnelChannel, this.tunnelMsg)
-      if (!this.tunnelChannel || !this.tunnelMsg) {
-        this.showSnackbar({
-          alertMessage: 'Invalid request parameter!',
-          alertVariant: 'danger'
-        })
-        return
-      }
-      this.$http
-          .get(`http://${Constant.serverAddress}:${Constant.serverPort}/sendTunnelMessage/${this.tunnelChannel}/${this.tunnelMsg}`)
+    onClick() {
+      let toolbar = document.getElementById('toolbar')
+      toolbar.style.top = '0'
+      console.log('click .. it', toolbar)
     },
-    showSnackbar(data) {
-      this.snackbarShow = true
-      this.alertMessage = data.alertMessage
-      this.alertVariant = data.alertVariant ? data.alertVariant : 'primary'
-    },
-  }
 
+    showToolbar() {
+      let toolbar = document.getElementById('toolbar')
+      toolbar.style.top = '0'
+      console.log('show .. it')
+    },
+    hideToolbar() {
+      let toolbar = document.getElementById('toolbar')
+      toolbar.style.top = '-2rem'
+      console.log('hide .. it')
+    }
+  }
 }
 </script>
 
 <style lang="css" scoped>
 #main-page {
-  overflow-x: hidden;
+  overflow: hidden;
 }
+
+#toolbar-trigger {
+  position: absolute;
+  top: -1rem;
+  left: 0;
+  height: 4rem;
+  width: 100%;
+  background-color: transparent;
+  z-index: 999;
+}
+#toolbar {
+  position: absolute;
+  top: -2rem;
+  left: 0;
+  width: 100%;
+  opacity: 100%;
+  z-index: 3;
+}
+
+
 </style>

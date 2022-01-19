@@ -21,10 +21,10 @@ function createWindow () {
   const { Menu } = require('electron');
 
   mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    height: 360,
+    width: 637,
     useContentSize: true,
-    frame: true
+    frame: false
   })
 
   mainWindow.loadURL(winURL)

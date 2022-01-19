@@ -1,6 +1,6 @@
-# memorandum
+# Fxxk AIDA64
 
-> A little memorandum
+> 电脑性能监测程序
 
 #### Build Setup
 

@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'tunnelSimulator',
+    name: 'fxxkAida64',
   }
 </script>
 
