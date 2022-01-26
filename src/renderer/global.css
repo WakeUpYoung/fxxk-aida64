@@ -8,26 +8,14 @@ html, body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    cursor: default;
 }
 
 .cursor-pointer {
     cursor: pointer;
 }
 
-::-webkit-scrollbar {
-    width: .8rem;
-    height: .5rem;
+.digital-font {
+    font-family: "Press Start 2P";
 }
-/* Track */
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #C7E1E1;
-    border-radius: 30px;
-}
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #8CD8D8;
-}
+

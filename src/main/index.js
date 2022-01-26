@@ -14,21 +14,45 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
+let timeToHideToolbar = null
+
 function createWindow () {
   /**
    * Initial window options
    */
-  const { Menu } = require('electron');
+  const { Menu } = require('electron')
 
   mainWindow = new BrowserWindow({
     height: 360,
     width: 637,
     useContentSize: true,
-    frame: false
+    frame: true,
+    show: true,
+    backgroundColor: '#2fa8fb',
+
   })
 
   mainWindow.loadURL(winURL)
   Menu.setApplicationMenu(null);
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
+  /*mainWindow.on('move', () => {
+    if (timeToHideToolbar == null) {
+      timeToHideToolbar = setTimeout(function () {
+        mainWindow.webContents.send('hello', '1')
+        console.log('hide the toolbar')
+      }, 2000)
+    } else {
+      clearTimeout(timeToHideToolbar)
+      timeToHideToolbar = setTimeout(function () {
+        mainWindow.webContents.send('hello', '1')
+        console.log('hide the toolbar')
+      }, 2000)
+    }
+
+  })*/
 
   mainWindow.on('closed', () => {
     mainWindow = null

@@ -1,8 +1,8 @@
 <template>
   <div class="d-flex toolbar">
     <div class="d-flex col">
-        <div class="h-100 title ">
-          Fxxk Aida64
+        <div class="h-100 title">
+          Fxxk AIDA64
         </div>
 
       </div>
@@ -10,11 +10,10 @@
         <div class="d-flex align-items-center justify-content-end h-100">
 
           <div class="icon none-selection">
-            <span class="material-icons" @click="minimize">remove</span>
-
+            <b-icon icon="dash" @click="minimize"></b-icon>
           </div>
           <div class="icon none-selection close">
-            <span class="material-icons" @click="closeApp">close</span>
+            <b-icon icon="x" @click="closeApp"></b-icon>
           </div>
         </div>
       </div>
@@ -45,7 +44,7 @@ export default {
   .toolbar {
     height: 2rem;
     background-color: #425B67;
-    /*-webkit-app-region: drag;*/
+    -webkit-app-region: drag;
     color: white;
   }
   .title {
@@ -61,6 +60,7 @@ export default {
     line-height: 2rem;
     text-align: center;
     cursor: pointer;
+    color: white;
   }
   .icon span {
     height: 100%;

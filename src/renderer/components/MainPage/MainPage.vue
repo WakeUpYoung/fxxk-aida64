@@ -1,8 +1,7 @@
 <template>
   <div>
-    <div id="toolbar-trigger" @mouseenter="showToolbar" @mouseleave="hideToolbar"></div>
-    <Toolbar id="toolbar"></Toolbar>
-    <b-button class="mt-5" @click="onClick">Click me</b-button>
+<!--    <div id="toolbar-trigger" @mouseenter="showToolbar"></div>
+    <Toolbar id="toolbar"></Toolbar>-->
     <Dashboard></Dashboard>
   </div>
 </template>
@@ -20,11 +19,6 @@ export default {
     }
   },
   methods: {
-    onClick() {
-      let toolbar = document.getElementById('toolbar')
-      toolbar.style.top = '0'
-      console.log('click .. it', toolbar)
-    },
 
     showToolbar() {
       let toolbar = document.getElementById('toolbar')
@@ -36,6 +30,10 @@ export default {
       toolbar.style.top = '-2rem'
       console.log('hide .. it')
     }
+  },
+
+  mounted() {
+
   }
 }
 </script>
@@ -47,20 +45,18 @@ export default {
 
 #toolbar-trigger {
   position: absolute;
-  top: -1rem;
+  top: 2rem;
   left: 0;
-  height: 4rem;
+  height: 1rem;
   width: 100%;
-  background-color: transparent;
-  z-index: 999;
+  background-color: rgba(140, 216, 216, 0.8);
 }
 #toolbar {
   position: absolute;
-  top: -2rem;
+  top: 0;
   left: 0;
   width: 100%;
   opacity: 100%;
-  z-index: 3;
 }
 
 
