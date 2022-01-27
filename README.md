@@ -4,7 +4,7 @@
 
 #### 截图
 
-![screenshot](https://github.com/WakeUpYoung/fxxk-aida64/blob/main/images/fxxk-AIDA64-screnshot.png?raw=true)
+![screenshot](https://raw.githubusercontent.com/WakeUpYoung/fxxk-aida64/main/images/fxxk-AIDA64-screenshot.png)
 
 #### Build Setup
 
