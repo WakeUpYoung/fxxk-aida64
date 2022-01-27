@@ -3,7 +3,7 @@
     <b-row class="info-content" align-v="center" align-h="center">
       <b-col class="d-flex flex-column align-items-center justify-content-center">
         <b-icon icon="thermometer-half" class="thermometer" :variant="thermometerColor"></b-icon>
-        <div class="">
+        <div class="usagePercentage">
           {{ currentTemperature }} ℃
           <b-icon v-show="!currentTemperature" id="privilege-warning"
                   icon="exclamation-triangle-fill" variant="warning"></b-icon>
@@ -19,7 +19,7 @@
                              :start-color="cpuUsageColor" :stop-color="cpuUsageColor"
                              :innerStrokeColor="innerStrokeColor">
           <b-icon icon="cpu" class="h1"></b-icon>
-          <div>{{ cpuUsage }} %</div>
+          <div class="usagePercentage">{{ cpuUsage }} %</div>
         </radial-progress-bar>
 
       </b-col>
@@ -32,7 +32,8 @@
                              :inner-stroke-width="innerStrokeWidth" :stroke-width="strokeWidth"
                              :start-color="cpuUsageColor" :stop-color="cpuUsageColor"
                              :innerStrokeColor="innerStrokeColor">
-          <div>Memory<br/>{{ memoryUsed }}%</div>
+          <div>Memory</div>
+          <div class="usagePercentage">{{ memoryUsed }} %</div>
         </radial-progress-bar>
       </b-col>
       <b-col>
@@ -60,7 +61,7 @@ export default {
       progressbarWidth: 180,
       strokeWidth: 10,
       innerStrokeWidth: 16,
-      innerStrokeColor: '#f1f1f1',
+      innerStrokeColor: 'rgba(241,241,241,0.7)',
       cpuUsageColor: '#49acff',
 
       systemInfoInterval: null,
@@ -135,6 +136,10 @@ export default {
 
 .thermometer {
   font-size: 5rem !important;
+}
+.usagePercentage {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 </style>
