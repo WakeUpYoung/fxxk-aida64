@@ -1,23 +1,39 @@
 <template>
   <b-container class="none-selection">
-    <b-row class="info-content border border-dark" align-v="center" align-h="center">
-      <b-col class="">
-        <div>
-          <b-icon icon="cpu" class="h1"></b-icon>
-          <b-icon icon="thermometer-half" class="h1"></b-icon>
+    <b-row class="info-content" align-v="center" align-h="center">
+      <b-col class="d-flex flex-column align-items-center justify-content-center">
+        <b-icon icon="thermometer-half" class="h1" variant=""></b-icon>
+        <div class="">
+          {{ currentTemperature }} ℃
+          <b-icon v-show="!currentTemperature" id="privilege-warning"
+                  icon="exclamation-triangle-fill" variant="warning"></b-icon>
+          <b-tooltip target="privilege-warning" placement="bottom">
+            如果未使用管理员模式运行，温度可能为0
+          </b-tooltip>
         </div>
-        <div class="">{{ currentTemperature }} ℃</div>
-
       </b-col>
-      <b-col>
-        <b-icon icon="cpu" class="h1"></b-icon>
-        <div>CPU: {{ cpuUsage }}%</div>
+      <b-col class="d-flex align-items-center justify-content-center">
+        <radial-progress-bar :diameter="progressbarWidth" :completed-steps="cpuUsage" :total-steps="100"
+                             :animateSpeed="animateSpeed"
+                             :inner-stroke-width="innerStrokeWidth" :stroke-width="strokeWidth"
+                             :start-color="cpuUsageColor" :stop-color="cpuUsageColor"
+                             :innerStrokeColor="innerStrokeColor">
+          <b-icon icon="cpu" class="h1"></b-icon>
+          <div>{{ cpuUsage }} %</div>
+        </radial-progress-bar>
+
       </b-col>
 
     </b-row>
     <b-row class="info-content" align-v="center" align-h="center">
-      <b-col>
-        <div>Memory Usage: {{ memoryUsed }}%</div>
+      <b-col class="d-flex align-items-center justify-content-center">
+        <radial-progress-bar :diameter="progressbarWidth" :completed-steps="memoryUsed" :total-steps="100"
+                             :animateSpeed="animateSpeed"
+                             :inner-stroke-width="innerStrokeWidth" :stroke-width="strokeWidth"
+                             :start-color="cpuUsageColor" :stop-color="cpuUsageColor"
+                             :innerStrokeColor="innerStrokeColor">
+          <div>Memory<br/>{{ memoryUsed }}%</div>
+        </radial-progress-bar>
       </b-col>
       <b-col>
         <div class="digital-font h3">{{ currentTime }}</div>
@@ -33,18 +49,25 @@
 import Constant from '../constant'
 import moment from 'moment'
 import sys from 'systeminformation'
-import Toolbar from "./Toolbar";
+import RadialProgressBar from 'vue-radial-progress'
 
 export default {
   name: "Dashboard",
-  components: {Toolbar},
+  components: {RadialProgressBar},
   data() {
     return {
-      currentTemperature: 0,
+      animateSpeed: 300,
+      progressbarWidth: 180,
+      strokeWidth: 10,
+      innerStrokeWidth: 16,
+      innerStrokeColor: '#d16bdf',
+      cpuUsageColor: '#2589ef',
+
       systemInfoInterval: null,
 
-      memoryUsed: 0,
+      currentTemperature: 0,
       cpuUsage: 0,
+      memoryUsed: 0,
 
       currentTime: '',
       currentDayOfWeek: ''
@@ -95,9 +118,9 @@ export default {
 
 <style scoped>
 .info-content {
-  background-color: rgba(97, 141, 162, 0.91);
   height: 50vh;
   text-align: center;
+  color: #dedcdc;
 }
 
 </style>

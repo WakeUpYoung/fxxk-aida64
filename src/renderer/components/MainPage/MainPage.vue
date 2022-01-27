@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="main-page">
 <!--    <div id="toolbar-trigger" @mouseenter="showToolbar"></div>
     <Toolbar id="toolbar"></Toolbar>-->
     <Dashboard></Dashboard>
@@ -41,6 +41,8 @@ export default {
 <style lang="css" scoped>
 #main-page {
   overflow: hidden;
+  background: url("../../assets/imgs/tech-g4e8397df3_1920.jpg");
+  background-size: 100%;
 }
 
 #toolbar-trigger {
