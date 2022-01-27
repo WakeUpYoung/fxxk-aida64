@@ -2,7 +2,7 @@
   <b-container class="none-selection">
     <b-row class="info-content" align-v="center" align-h="center">
       <b-col class="d-flex flex-column align-items-center justify-content-center">
-        <b-icon icon="thermometer-half" class="h1" variant=""></b-icon>
+        <b-icon icon="thermometer-half" class="thermometer" :variant="thermometerColor"></b-icon>
         <div class="">
           {{ currentTemperature }} ℃
           <b-icon v-show="!currentTemperature" id="privilege-warning"
@@ -60,8 +60,8 @@ export default {
       progressbarWidth: 180,
       strokeWidth: 10,
       innerStrokeWidth: 16,
-      innerStrokeColor: '#d16bdf',
-      cpuUsageColor: '#2589ef',
+      innerStrokeColor: '#f1f1f1',
+      cpuUsageColor: '#49acff',
 
       systemInfoInterval: null,
 
@@ -72,6 +72,16 @@ export default {
       currentTime: '',
       currentDayOfWeek: ''
 
+    }
+  },
+
+  computed: {
+    thermometerColor() {
+      if (this.currentTemperature) {
+        return this.currentTemperature < 60 ? 'info' : this.currentTemperature > 90 ? 'danger' : 'warning'
+      } else {
+        return 'default'
+      }
     }
   },
 
@@ -121,6 +131,10 @@ export default {
   height: 50vh;
   text-align: center;
   color: #dedcdc;
+}
+
+.thermometer {
+  font-size: 5rem !important;
 }
 
 </style>

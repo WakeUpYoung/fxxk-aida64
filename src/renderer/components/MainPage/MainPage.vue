@@ -9,10 +9,9 @@
 <script>
 
 import Dashboard from "../Dashboard";
-import Toolbar from "../Toolbar";
 export default {
   name: 'MainPage',
-  components: {Toolbar, Dashboard},
+  components: {Dashboard},
   data() {
     return {
 
