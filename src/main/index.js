@@ -29,6 +29,7 @@ function createWindow () {
     frame: true,
     show: true,
     backgroundColor: '#2fa8fb',
+    icon: require('path').join(__dirname, './imgs/180x180.jpg')
 
   })
 
